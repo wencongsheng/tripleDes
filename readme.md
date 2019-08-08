@@ -16,12 +16,13 @@ go version go1.11.4 darwin/amd64
 js Chrome 版本 73.0.3683.103（正式版本） （64 位）
 
 ## 依赖 （java）
+```
 <dependency>
     <groupId>commons-codec</groupId>
     <artifactId>commons-codec</artifactId>
     <version>1.11</version>
 </dependency>
-
+```
 ## 说明
 5个版本数据都测试成功，请按需拿取
 请注意php是经过openssl_encrypt会自动base64_encode后才返回的加解密数据
