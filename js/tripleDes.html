@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="./js/core.js"></script>
+<script src="./js/enc-base64.js"></script>
+<script src="./js/tripledes.js"></script>
+<script src="./js/mode-ecb.js"></script>
+<script src="./js/pad-nopadding.js"></script>
+<script>
+    let str = '{"type":"js","order_id":"201609010016562012987","dealer_id":"2736123 ","broker_id ":"yiyun ","real_name ":"张三 ","card_no ":"6228880199872220 ","phone_no ":"13488795491 ","id_card ":"123532612312312321 ","pay ":"100000.00 "}'
+    var key = "123456788765432112345678";
+
+    let iv = key.substring(0,8);
+    function encryptByDESModeCBC(message) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+        var encrypted = CryptoJS.TripleDES.encrypt(message, keyHex, {
+        iv:CryptoJS.enc.Utf8.parse(iv),
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7});
+        return encrypted.toString();
+    }
+        //CBC Schema decryption
+    function decryptByDESModeCBC(ciphertext2) {
+        var crypto_key 	= CryptoJS.enc.Utf8.parse(key);
+	   var crypto_iv 	= CryptoJS.enc.Utf8.parse(iv);
+        var decrypt_str	= CryptoJS.TripleDES.decrypt(ciphertext2, crypto_key, {
+						iv: 		crypto_iv,
+						mode: 		CryptoJS.mode.CBC,
+						padding: 	CryptoJS.pad.Pkcs7});
+        return 	decrypt_str.toString(CryptoJS.enc.Utf8);
+    }
+
+    let en = encryptByDESModeCBC(str);
+    console.log(en);
+    let de  = decryptByDESModeCBC(en);
+    console.log(JSON.parse(de))
+
+</script>
+</html>
